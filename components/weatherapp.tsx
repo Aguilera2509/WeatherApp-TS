@@ -51,7 +51,7 @@ export const WeatherApp:NextPage<{geolocation:dataGeo, setGeolocationErr:Dispatc
   async function GetDataWeatherPollution(abortController:AbortController):Promise<void> {
     if(selected.mode !== "scientists") return;
     try{
-      let urlPollution:RequestInfo = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${geolocation.latitudeFromAPI}&lon=${geolocation.longitudeFromAPI}&appid=f407aaedf1c4eafa4138ef2dd93cb636`;
+      let urlPollution:RequestInfo = `https://api.openweathermap.org/data/2.5/air_pollution?lat=${geolocation.latitudeFromAPI}&lon=${geolocation.longitudeFromAPI}&appid=f407aaedf1c4eafa4138ef2dd93cb636`;
       const responsePollution:Response = await fetch(urlPollution, {
         signal: abortController.signal,
       });
@@ -92,6 +92,7 @@ export const WeatherApp:NextPage<{geolocation:dataGeo, setGeolocationErr:Dispatc
           {catchdata &&
             <div className="space-y-6 text-base leading-7 text-cyan-800">
               <p>This are your weather&lsquo;s charactericts:</p>
+              <p>Temperature is in {selected.degrees === "metric" && "Celsius"} {selected.degrees === "imperial" && "Fahrenheit"} {selected.degrees === "" && "Kelvin"} </p>
               <ul className="space-y-4">
                 <li className="flex items-center">
                   <svg className="h-6 w-6 flex-none fill-sky-100 stroke-sky-500 stroke-2" strokeLinecap="round" strokeLinejoin="round">
@@ -122,9 +123,9 @@ export const WeatherApp:NextPage<{geolocation:dataGeo, setGeolocationErr:Dispatc
                     Your weather presence: <br />
                     Pressure: <strong>{dataWeather?.main.pressure} hPa</strong> <br />
                     Humidity: <strong>{dataWeather?.main.humidity} %</strong> <br />
-                    Temperature: <strong>{dataWeather?.main.temp} C</strong><br />
-                    Temperature_min: <strong>{dataWeather?.main.temp_min} C</strong> and Temperature_max: <strong>{dataWeather?.main.temp_max} C</strong> <br />
-                    But, It can be feels like: <strong>{dataWeather?.main.feels_like} C</strong><br />
+                    Temperature: <strong>{dataWeather?.main.temp} </strong><br />
+                    Temperature_min: <strong>{dataWeather?.main.temp_min}</strong> and Temperature_max: <strong>{dataWeather?.main.temp_max}</strong> <br />
+                    But, It can be feels like: <strong>{dataWeather?.main.feels_like} </strong><br />
                     Speed_Wind: <strong>{dataWeather?.wind.speed} meter/sec</strong> <br />
                     Direcction_Wind: <strong>{dataWeather?.wind.deg} degrees</strong> <br />
                     Gust_Wind: <strong>{dataWeather?.wind.gust} meter/sec</strong> <br />
