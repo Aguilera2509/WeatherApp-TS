@@ -2,6 +2,7 @@ import { NextPage } from "next";
 import { allDataGeo, dataGeo, dataGeoErr, dataPollution, errPollution, typeSelected } from "./interface";
 import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import { Loading } from "./load";
+import Link from "next/link";
 
 export const WeatherApp:NextPage<{geolocation:dataGeo, setGeolocationErr:Dispatch<SetStateAction<dataGeoErr>>}> = ({geolocation, setGeolocationErr}) => {
   const [dataWeather, setDataWeather] = useState<allDataGeo>();
@@ -91,6 +92,9 @@ export const WeatherApp:NextPage<{geolocation:dataGeo, setGeolocationErr:Dispatc
           }
           {catchdata &&
             <div className="space-y-6 text-base leading-7 text-cyan-800">
+              <Link href="forecast" legacyBehavior>
+                <a className="text-blue-600 visited:text-purple-600">Go to Forecast</a>
+              </Link>
               <p>This are your weather&lsquo;s charactericts:</p>
               <p>Temperature is in {selected.degrees === "metric" && "Celsius"} {selected.degrees === "imperial" && "Fahrenheit"} {selected.degrees === "" && "Kelvin"} </p>
               <ul className="space-y-4">
@@ -127,7 +131,7 @@ export const WeatherApp:NextPage<{geolocation:dataGeo, setGeolocationErr:Dispatc
                     Temperature_min: <strong>{dataWeather?.main.temp_min}</strong> and Temperature_max: <strong>{dataWeather?.main.temp_max}</strong> <br />
                     But, It can be feels like: <strong>{dataWeather?.main.feels_like} </strong><br />
                     Speed_Wind: <strong>{dataWeather?.wind.speed} meter/sec</strong> <br />
-                    Direcction_Wind: <strong>{dataWeather?.wind.deg} degrees</strong> <br />
+                    Direction_Wind: <strong>{dataWeather?.wind.deg} degrees</strong> <br />
                     Gust_Wind: <strong>{dataWeather?.wind.gust} meter/sec</strong> <br />
                   </p>
                 </li>

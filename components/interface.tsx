@@ -106,8 +106,8 @@ interface Sys {
 
 interface Weather {
     id:          number;
-    main:        string;
-    description: string;
+    main:        string | MainEnum;
+    description: string | Description;
     icon:        string;
 };
 
@@ -116,3 +116,74 @@ interface Wind {
     deg:   number;
     gust:  number;
 };
+
+////INTERFACE USED IN FORECAST.TSX
+export interface Forecast{
+    cod:     string;
+    message: number;
+    cnt:     number;
+    list:    ListForecast[];
+    city:    City;
+};
+
+interface City {
+    id:         number;
+    name:       string;
+    coord:      Coord;
+    country:    string;
+    population: number;
+    timezone:   number;
+    sunrise:    number;
+    sunset:     number;
+}
+
+export interface ListForecast {
+    dt:         number;
+    main:       MainClass;
+    weather:    Weather[];
+    clouds:     Clouds;
+    wind:       Wind;
+    visibility: number;
+    pop:        number;
+    sys:        Sys2;
+    dt_txt:     Date;
+    rain?:      Rain;
+}
+
+interface MainClass {
+    temp:       number;
+    feels_like: number;
+    temp_min:   number;
+    temp_max:   number;
+    pressure:   number;
+    sea_level:  number;
+    grnd_level: number;
+    humidity:   number;
+    temp_kf:    number;
+}
+
+interface Rain {
+    "3h": number;
+}
+
+interface Sys2 {
+    pod: Pod;
+}
+
+enum Pod {
+    D = "d",
+    N = "n",
+}
+
+enum Description {
+    BrokenClouds = "broken clouds",
+    FewClouds = "few clouds",
+    LightRain = "light rain",
+    OvercastClouds = "overcast clouds",
+    ScatteredClouds = "scattered clouds",
+}
+
+enum MainEnum {
+    Clouds = "Clouds",
+    Rain = "Rain",
+}

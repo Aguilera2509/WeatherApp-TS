@@ -42,7 +42,7 @@ const Home: NextPage = () => {
     if(navigator.geolocation){
       navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
     }else{
-      setGeolocationErr({codeFromAPI: 0, messageFromAPI:"This browser have not suppoted for this application"});
+      setGeolocationErr({codeFromAPI: 101, messageFromAPI:"This browser have not suppoted for this application"});
     };
   }, []);
 
