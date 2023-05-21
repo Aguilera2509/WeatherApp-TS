@@ -8,7 +8,7 @@ import { ErrorPage } from '../components/denypermission';
 import { Loading } from '../components/load';
 import Script from 'next/script';
 
-const options:optionsFetch = {
+export const options:optionsFetch = {
   enableHighAccuracy: true,
   timeout: 5000,
   maximumAge: 0,

@@ -1,10 +1,11 @@
 import { NextPage } from "next";
 import { ListForecast, typeSelected } from "./interface";
 import Link from "next/link";
-import { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction } from "react";
+import { options } from "./weatherapp";
 
 export const ModelForecast:NextPage<{weatherForecast:ListForecast, selected:typeSelected, setSelected:Dispatch<SetStateAction<typeSelected>>}> = ({weatherForecast, selected, setSelected}) =>{
-  const handleChange = (e:any):void =>{
+  const handleChange = (e:React.ChangeEvent<HTMLSelectElement>):void =>{
     setSelected({
       ...selected,
       [e.target.name]: e.target.value
@@ -93,52 +94,9 @@ export const ModelForecast:NextPage<{weatherForecast:ListForecast, selected:type
           </div>
           <p className="italic">If you want to change the Lenguage or change Temperature&lsquo;s degree, below: </p>
           <select name="lenguage" className="border-dashed border-2 border-indigo-600" value={selected.lenguage} onChange={handleChange}>
-              <option value="af">Afrikaans</option>
-              <option value="al">Albanian</option>
-              <option value="ar">Arabic</option>
-              <option value="az">Azerbaijani</option>
-              <option value="bg">Bulgarian</option>
-              <option value="ca">Catalan</option>
-              <option value="cz">Czech</option>
-              <option value="da">Danish</option>
-              <option value="de">German</option>
-              <option value="el">Greek</option>
-              <option value="en">English</option>
-              <option value="eu">Basque</option>
-              <option value="fa">Persian-Farsi</option>
-              <option value="fi">Finnish</option>
-              <option value="fr">French</option>
-              <option value="gl">Galician</option>
-              <option value="he">Hebrew</option>
-              <option value="hi">Hindi</option>
-              <option value="hr">Croatian</option>
-              <option value="hu">Hungarian</option>
-              <option value="id">Indonesian</option>
-              <option value="it">Italian</option>
-              <option value="ja">Japanese</option>
-              <option value="kr">Korean</option>
-              <option value="la">Latvian</option>
-              <option value="lt">Lithuanian</option>
-              <option value="mk">Macedonian</option>
-              <option value="no">Norwegian</option>
-              <option value="nl">Dutch</option>
-              <option value="pl">Polish</option>
-              <option value="pt">Portuguese</option>
-              <option value="pt_br">Português Brasil</option>
-              <option value="ro">Romanian</option>
-              <option value="ru">Russian</option>
-              <option value="sv">Swedish</option>
-              <option value="sk">Slovak</option>
-              <option value="sl">Slovenian</option>
-              <option value="es">Spanish</option>
-              <option value="sr">Serbian</option>
-              <option value="th">Thai</option>
-              <option value="tr">Turkish</option>
-              <option value="ua">Ukrainian</option>
-              <option value="vi">Vietnamese</option>
-              <option value="zh_cn">Chinese Simplified</option>
-              <option value="zh_tw">Chinese Traditional</option>
-              <option value="zu">Zulu</option>
+          {options.map((option) => (
+            <option value={option.value} key={option.value} >{option.label}</option>
+          ))}
           </select>
           <select name="degrees" className="border-dashed border-2 border-indigo-600" value={selected.degrees} onChange={handleChange}>
             <option value="metric">Celsius</option>

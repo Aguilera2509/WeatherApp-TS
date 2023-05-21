@@ -3,16 +3,11 @@ import Head from "next/head";
 import Script from "next/script";
 import styles from '../styles/Home.module.css';
 import { useEffect, useState } from "react";
-import { Forecast, optionsFetch, typeErrorCallback, typeSuccessCallback, typeSelected, dataGeo, dataGeoErr } from "../components/interface";
+import { Forecast, typeErrorCallback, typeSuccessCallback, typeSelected, dataGeo, dataGeoErr } from "../components/interface";
 import { ModelForecast } from "../components/modelForecast";
 import { Loading } from "../components/load";
 import { ErrorPage } from "../components/denypermission";
-
-const options:optionsFetch = {
-    enableHighAccuracy: true,
-    timeout: 5000,
-    maximumAge: 0,
-};
+import { options } from ".";
 
 const Forecast: NextPage = () =>{
     const [geolocation, setGeolocation] = useState<dataGeo>({
@@ -73,7 +68,7 @@ const Forecast: NextPage = () =>{
         }; 
 
         const abortController:AbortController = new AbortController();
-        setTimeout(() => abortController.abort(), 8000);
+        setTimeout(() => abortController.abort(), 15000);
 
         GetDataWeatherForecast(abortController);
     },[selected]);

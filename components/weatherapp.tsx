@@ -1,8 +1,62 @@
 import { NextPage } from "next";
 import { allDataGeo, dataGeo, dataGeoErr, dataPollution, errPollution, typeSelected } from "./interface";
-import { useEffect, useState, Dispatch, SetStateAction } from "react";
+import React, { useEffect, useState, Dispatch, SetStateAction } from "react";
 import { Loading } from "./load";
 import Link from "next/link";
+
+type Option = {
+  value: string;
+  label: string;
+};
+
+export const options:Option[] = [
+  { value: 'af', label: 'Afrikaans' },
+  { value: 'al', label: 'Albanian' },
+  { value: 'ar', label: 'Arabic' },
+  { value: 'az', label: 'Azerbaijani' },
+  { value: 'bg', label: 'Bulgarian' },
+  { value: 'ca', label: 'Catalan' },
+  { value: 'cz', label: 'Czech' },
+  { value: 'da', label: 'Danish' },
+  { value: 'de', label: 'German' },
+  { value: 'el', label: 'Greek' },
+  { value: 'en', label: 'English' },
+  { value: 'eu', label: 'Basque' },
+  { value: 'fa', label: 'Persian-Farsi' },
+  { value: 'fi', label: 'Finnish' },
+  { value: 'fr', label: 'French' },
+  { value: 'gl', label: 'Galician' },
+  { value: 'he', label: 'Hebrew' },
+  { value: 'hi', label: 'Hindi' },
+  { value: 'hr', label: 'Croatian' },
+  { value: 'hu', label: 'Hungarian' },
+  { value: 'id', label: 'Indonesian' },
+  { value: 'it', label: 'Italian' },
+  { value: 'ja', label: 'Japanese' },
+  { value: 'kr', label: 'Korean' },
+  { value: 'la', label: 'Latvian' },
+  { value: 'lt', label: 'Lithuanian' },
+  { value: 'mk', label: 'Macedonian' },
+  { value: 'no', label: 'Norwegian' },
+  { value: 'nl', label: 'Dutch' },
+  { value: 'pl', label: 'Polish' },
+  { value: 'pt', label: 'Portuguese' },
+  { value: 'pt_br', label: 'Português Brasil' },
+  { value: 'ro', label: 'Romanian' },
+  { value: 'ru', label: 'Russian' },
+  { value: 'sv', label: 'Swedish' },
+  { value: 'sk', label: 'Slovak' },
+  { value: 'sl', label: 'Slovenian' },
+  { value: 'es', label: 'Spanish' },
+  { value: 'sr', label: 'Serbian' },
+  { value: 'th', label: 'Thai' },
+  { value: 'tr', label: 'Turkish' },
+  { value: 'ua', label: 'Ukrainian' },
+  { value: 'vi', label: 'Vietnamese' },
+  { value: 'zh_cn', label: 'Chinese Simplified' },
+  { value: 'zh_tw', label: 'Chinese Traditional' },
+  { value: 'zu', label: 'Zulu' }
+];
 
 export const WeatherApp:NextPage<{geolocation:dataGeo, setGeolocationErr:Dispatch<SetStateAction<dataGeoErr>>}> = ({geolocation, setGeolocationErr}) => {
   const [dataWeather, setDataWeather] = useState<allDataGeo>();
@@ -18,7 +72,7 @@ export const WeatherApp:NextPage<{geolocation:dataGeo, setGeolocationErr:Dispatc
     degrees: "metric"
   });
 
-  const handleChange = (e:any):void =>{
+  const handleChange = (e:React.ChangeEvent<HTMLSelectElement>):void =>{
     setSelected({
       ...selected,
       [e.target.name]: e.target.value
@@ -155,52 +209,9 @@ export const WeatherApp:NextPage<{geolocation:dataGeo, setGeolocationErr:Dispatc
                 <option value="scientists">Scientists</option>
               </select>
               <select name="lenguage" className="border-dashed border-2 border-indigo-600" value={selected.lenguage} onChange={handleChange}>
-                <option value="af">Afrikaans</option>
-                <option value="al">Albanian</option>
-                <option value="ar">Arabic</option>
-                <option value="az">Azerbaijani</option>
-                <option value="bg">Bulgarian</option>
-                <option value="ca">Catalan</option>
-                <option value="cz">Czech</option>
-                <option value="da">Danish</option>
-                <option value="de">German</option>
-                <option value="el">Greek</option>
-                <option value="en">English</option>
-                <option value="eu">Basque</option>
-                <option value="fa">Persian-Farsi</option>
-                <option value="fi">Finnish</option>
-                <option value="fr">French</option>
-                <option value="gl">Galician</option>
-                <option value="he">Hebrew</option>
-                <option value="hi">Hindi</option>
-                <option value="hr">Croatian</option>
-                <option value="hu">Hungarian</option>
-                <option value="id">Indonesian</option>
-                <option value="it">Italian</option>
-                <option value="ja">Japanese</option>
-                <option value="kr">Korean</option>
-                <option value="la">Latvian</option>
-                <option value="lt">Lithuanian</option>
-                <option value="mk">Macedonian</option>
-                <option value="no">Norwegian</option>
-                <option value="nl">Dutch</option>
-                <option value="pl">Polish</option>
-                <option value="pt">Portuguese</option>
-                <option value="pt_br">Português Brasil</option>
-                <option value="ro">Romanian</option>
-                <option value="ru">Russian</option>
-                <option value="sv">Swedish</option>
-                <option value="sk">Slovak</option>
-                <option value="sl">Slovenian</option>
-                <option value="es">Spanish</option>
-                <option value="sr">Serbian</option>
-                <option value="th">Thai</option>
-                <option value="tr">Turkish</option>
-                <option value="ua">Ukrainian</option>
-                <option value="vi">Vietnamese</option>
-                <option value="zh_cn">Chinese Simplified</option>
-                <option value="zh_tw">Chinese Traditional</option>
-                <option value="zu">Zulu</option>
+              {options.map((option) => (
+                <option value={option.value} key={option.value} >{option.label}</option>
+              ))}
               </select>
               {selected.mode === "scientists" &&
                 <select name="degrees" className="border-dashed border-2 border-indigo-600" value={selected.degrees} onChange={handleChange}>
